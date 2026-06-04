@@ -1,3 +1,5 @@
+# Author: Boya Zhang <by.zhang1@siat.ac.cn>
+# Date: 2026.05.31
 """Lightweight Temporal Context Encoder (LTCE).
 
 Each modality is encoded by a modality-specific front-end followed by a stack of

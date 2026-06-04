@@ -1,3 +1,5 @@
+# Author: Boya Zhang <by.zhang1@siat.ac.cn>
+# Date: 2026.05.31
 """Bidirectional Modality-Adaptive Fusion (BMAF).
 
 Fuses the radar and IMU temporal embeddings:

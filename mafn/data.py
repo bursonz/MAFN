@@ -1,3 +1,5 @@
+# Author: Boya Zhang <by.zhang1@siat.ac.cn>
+# Date: 2026.05.31
 """OctoNet test-set loader (mmWave point cloud + micro-Doppler + IMU).
 
 Reads the cached subset under ``data/octonet`` and returns the dict batch the

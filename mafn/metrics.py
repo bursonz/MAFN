@@ -1,3 +1,5 @@
+# Author: Boya Zhang <by.zhang1@siat.ac.cn>
+# Date: 2026.05.31
 """Classification metrics (no sklearn dependency); all return plain floats."""
 from __future__ import annotations
 

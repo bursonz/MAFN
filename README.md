@@ -77,9 +77,11 @@ python test.py --task har  --variant mafn-s   # MAFN-S (d=128)
 python test.py --task fall --variant mafn-s
 ```
 
-Each run loads one checkpoint and evaluates it under three inference regimes —
-**full** (radar + IMU), **radar-only**, and **IMU-only** — selected purely by the
-modality mask. HAR reports accuracy / macro-F1 / weighted-F1; FD reports recall,
+Each run loads one checkpoint and evaluates it under five inference regimes
+selected purely by the modality mask: **full** (radar + IMU), **radar-only**,
+**IMU-only**, and two random-dropout regimes **rand25** / **rand50** (one present
+modality dropped per sample with probability 0.25 / 0.50, always keeping at least
+one). HAR reports accuracy / macro-F1 / weighted-F1; FD reports recall,
 specificity, precision, F1, AUROC, false-alarm rate (FAR) and missed-detection
 rate (MDR), with the operating point set by Youden's J (AUROC is threshold-free).
 
@@ -98,21 +100,33 @@ reproduces the following on the OctoNet test set.
 | MAFN-S  | HAR  | 128 | 390K | `checkpoints/mafn_s_har.pth` |
 | MAFN-S  | FD   | 128 | 349K | `checkpoints/mafn_s_fall.pth` |
 
-**HAR — macro-F1**
+For example, `python test.py --task har` and `python test.py --task fall` (MAFN,
+d=192) print:
 
-| Variant | full | radar-only | IMU-only |
-|---|---|---|---|
-| MAFN   | 0.521 | 0.389 | 0.341 |
-| MAFN-S | 0.534 | 0.344 | 0.340 |
+```
+MAFN  task=har  d_model=192  params=821K
 
-**FD — AUROC (full / radar-only / IMU-only) and full-modality MDR**
+scenario      accuracy  macro-F1  weighted-F1
+---------------------------------------------
+full            0.5208    0.5206       0.5204
+radar-only      0.4264    0.3888       0.3889
+IMU-only        0.3623    0.3413       0.3404
+rand25          0.4906    0.4870       0.4867
+rand50          0.4679    0.4667       0.4658
 
-| Variant | AUROC full | AUROC radar | AUROC IMU | MDR (full) |
-|---|---|---|---|---|
-| MAFN   | 0.998 | 0.986 | 0.803 | 0.000 |
-| MAFN-S | 0.990 | 0.852 | 0.894 | 0.000 |
+MAFN  task=fall  d_model=192  params=777K
 
-Both tasks are trained separately; each checkpoint carries a single task head.
+scenario       recall    spec.    prec.       F1    AUROC      FAR      MDR
+---------------------------------------------------------------------------
+full           1.0000   0.9887   0.8800   0.9362   0.9981   0.0113   0.0000
+radar-only     0.9545   0.9585   0.6562   0.7778   0.9863   0.0415   0.0455
+IMU-only       0.7273   0.7434   0.1905   0.3019   0.8029   0.2566   0.2727
+rand25         1.0000   0.9585   0.6667   0.8000   0.9930   0.0415   0.0000
+rand50         0.9091   0.9321   0.5263   0.6667   0.9729   0.0679   0.0909
+```
+
+MAFN-S (d=128, ≈390K parameters) behaves analogously. Both tasks are trained
+separately; each checkpoint carries a single task head.
 
 ## Model
 

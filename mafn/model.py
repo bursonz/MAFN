@@ -1,3 +1,5 @@
+# Author: Boya Zhang <by.zhang1@siat.ac.cn>
+# Date: 2026.05.31
 """MAFN — Modality-Adaptive Fusion Network.
 
 A lightweight network that fuses mmWave radar (point cloud, optionally with the

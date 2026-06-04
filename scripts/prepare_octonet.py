@@ -1,3 +1,5 @@
+# Author: Boya Zhang <by.zhang1@siat.ac.cn>
+# Date: 2026.05.31
 """Build the OctoNet HAR / fall-detection subset used by MAFN.
 
 This reproduces the cached arrays consumed by ``mafn.data`` from the public
