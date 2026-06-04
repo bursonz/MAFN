@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.DS_Store
+.ipynb_checkpoints/
+.vscode/
+.idea/
+
+# Built OctoNet subset (produced by scripts/prepare_octonet.py); the record
+# index (data/octonet_index.csv) is tracked, the built arrays are not.
+data/octonet/
